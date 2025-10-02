@@ -23,3 +23,36 @@ function verifyPassword(event){
     alert("Usuario o contraseña son incorrectos ");
     
 }//fin funcion verifyPassword
+
+//funcion para generar la cantidad preguntas de checkboxes
+function generateCheckBoxes(event) {
+    event.preventDefault(); // 👈 evita que el formulario recargue la página
+
+    const cantidad = document.getElementById("quantityCheck").value;
+    const opciones = document.getElementById("quantityOptions").value;
+
+    const container = document.createElement("div");
+
+    for (let i = 1; i <= cantidad; i++) {
+        const pregunta = document.createElement("h3");
+        pregunta.textContent = `Pregunta ${i}`;
+        container.appendChild(pregunta);
+
+        for (let j = 1; j <= opciones; j++) {
+            const label = document.createElement("label");
+            label.textContent = `Opción ${j}`;
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = `pregunta${i}`;
+            checkbox.value = `opcion${j}`;
+            
+            container.appendChild(checkbox);
+            container.appendChild(label);
+            container.appendChild(document.createElement("br"));
+        }
+    }
+
+    // 👇 agrega las preguntas al final del body
+    document.body.appendChild(container);
+}
+

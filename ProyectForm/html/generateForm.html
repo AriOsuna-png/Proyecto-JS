@@ -1,13 +1,36 @@
+<!--HTML encargado de generar las encuestas-->
 <!DOCTYPE html>
 <html lang = "en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-whidh, initial-sacle-1.0">
         <title>Document</title>
-        <link rel="stylesheet" href="./css/styles.css">
-        <script src="./js/scripts.js"> </script>
+        <link rel="stylesheet" href="../css/styles.css">
+        <script src="../js/scripts.js"> </script>
     </head>
     <body>
         <h1>generalo</h1>
+
+        <!--Div encargado de la cantidad de preguntas de chekboxes-->
+        <div>
+            <h2>CheckBoxes</h2>
+
+            <div>
+                <form>
+
+                    <label for="quantityCheck">ingresa la cantidad de chekboxes</label>
+                    <input type="number" id="quantityCheck" name="quantityCheck"><br><br>
+
+                    <label for="quantityOptions">Ingresa la cantidad de opciones</label>
+                    <input type="number" id="quantityOptions" name="quantityOptions"><br><br>
+
+                    <button onclick="generateCheckBoxes(event)">generar</button>
+
+                </form>
+            </div>
+
+
+        </div>
+
     </body>
 </html> 
