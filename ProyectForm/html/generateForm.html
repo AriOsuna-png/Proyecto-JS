@@ -11,20 +11,16 @@
     <body>
         <h1>generalo</h1>
 
-        <!--Div encargado de la cantidad de preguntas de chekboxes-->
+        <!--Div encargado de generar la encuesta completa-->
         <div>
-            <h2>CheckBoxes</h2>
+            <!--se asigna el titulo a la encuesta-->
+            <input type="text" name="title" id="title" placeholder="Titulo de el la encuesta..."><br>
+            <input type="text" name="description" id="description" placeholder="Descripcion">
 
             <div>
                 <form>
-
-                    <label for="quantityCheck">ingresa la cantidad de chekboxes</label>
-                    <input type="number" id="quantityCheck" name="quantityCheck"><br><br>
-
-                    <label for="quantityOptions">Ingresa la cantidad de opciones</label>
-                    <input type="number" id="quantityOptions" name="quantityOptions"><br><br>
-
-                    <button onclick="generateCheckBoxes(event)">generar</button>
+                    <!--Boton que se encarga de generar preguntas-->
+                    <button onclick="generateQuestions(event)">Nueva Pregunta</button>
 
                 </form>
             </div>
