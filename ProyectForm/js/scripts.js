@@ -24,35 +24,73 @@ function verifyPassword(event){
     
 }//fin funcion verifyPassword
 
-//funcion para generar la cantidad preguntas de checkboxes
-function generateCheckBoxes(event) {
-    event.preventDefault(); // 👈 evita que el formulario recargue la página
+//funcion que se encarga de generar las respuestas
+function generateAnswers(event){
+    event.preventDefault();
+    const answer = document.createElement("input");
+    answer.placeholder = "respuesta";
+    
+    
+    
+    return answer;
 
-    const cantidad = document.getElementById("quantityCheck").value;
-    const opciones = document.getElementById("quantityOptions").value;
-
-    const container = document.createElement("div");
-
-    for (let i = 1; i <= cantidad; i++) {
-        const pregunta = document.createElement("h3");
-        pregunta.textContent = `Pregunta ${i}`;
-        container.appendChild(pregunta);
-
-        for (let j = 1; j <= opciones; j++) {
-            const label = document.createElement("label");
-            label.textContent = `Opción ${j}`;
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.name = `pregunta${i}`;
-            checkbox.value = `opcion${j}`;
-            
-            container.appendChild(checkbox);
-            container.appendChild(label);
-            container.appendChild(document.createElement("br"));
-        }
-    }
-
-    // 👇 agrega las preguntas al final del body
-    document.body.appendChild(container);
 }
+
+
+//funcion para generar la cantidad preguntas de checkboxes
+function generateQuestions(event) {
+    event.preventDefault();
+
+    const jump1 = document.createElement("br");
+    
+    
+    const container = document.createElement("div");
+    
+
+    const lblQuestion = document.createElement("label");
+    lblQuestion.textContent = "pregunta no."
+    container.appendChild(lblQuestion);
+
+    const question = document.createElement("input");
+    question.placeholder = "Ingresa la pregunta";
+
+    container.appendChild(jump1);
+
+    //crea el objeto select que sirve como menu de seleccion para las preguntas
+    const type = document.createElement("select");
+    type.id = "typeQuestions";
+
+    //crea la opcion de "opcion multiple" dentro del selector
+    const multipleChoice = document.createElement("option");
+    multipleChoice.value = "chekBoxes";
+    multipleChoice.text = "Opcion Multiple";
+
+    //crea la opcion de "texto" dentro del selector
+    const free = document.createElement("option");
+    free.value = "text";
+    free.text = "Texto";
+
+    //crea la opcion de "casillas" dentro del selector
+    const boxes = document.createElement("option");
+    boxes.value = "boxes";
+    boxes.text = "Casillas";
+    
+    //mete las opciones dentro del selector
+    type.appendChild(multipleChoice);
+    type.appendChild(free);
+    type.appendChild(boxes);
+
+    //mete las preguntas y el selector al div principal
+    container.appendChild(question);
+    container.appendChild(type);
+
+    //añade un salto de linea
+    const jump = document.createElement("br");
+    container.appendChild(jump);
+
+    // agrega las preguntas al final del body
+    document.body.appendChild(container);
+    container.appendChild(generateAnswers(event));
+
+}//fin funcion generateQuestion
 
