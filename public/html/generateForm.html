@@ -1,0 +1,32 @@
+<!--HTML encargado de generar las encuestas-->
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-whidh, initial-sacle-1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="../css/styles.css">
+        <script src="../js/scripts.js"> </script>
+    </head>
+    <body>
+        <h1>generalo</h1>
+
+        <!--Div encargado de generar la encuesta completa-->
+        <div>
+            <!--se asigna el titulo a la encuesta-->
+            <input type="text" name="title" id="title" placeholder="Titulo de el la encuesta..."><br>
+            <input type="text" name="description" id="description" placeholder="Descripcion">
+
+            <div>
+                <form>
+                    <!--Boton que se encarga de generar preguntas-->
+                    <button onclick="generateQuestions(event)">Nueva Pregunta</button>
+
+                </form>
+            </div>
+
+
+        </div>
+
+    </body>
+</html> 
