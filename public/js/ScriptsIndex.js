@@ -19,7 +19,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 
       // ✅ Aquí decidimos a qué página ir según el tipo
       if (data.usuario.tipo === "admin") {
-        window.location.href = "/html/admin.html";
+        window.location.href = "/html/Admin/adminIndex.html";
       } else {
         window.location.href = "/html/user.html";
       }
