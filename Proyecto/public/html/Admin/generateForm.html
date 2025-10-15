@@ -12,11 +12,11 @@
     <!-- Barra de navegación superior -->
     <nav>
         <div class="contenedor-usuario">
-            <p>Titulo del formulario</p>
+            <p>Titulo de la encueta</p>
         </div>
 
         <div class="contenedor-botones">
-            <a><img src="../../imagenes/volver.png" class="botonHeaders"></a>
+            <a href="./adminIndex.html"><img src="../../imagenes/volver.png" class="botonHeaders"></a>
             <img src="../../imagenes/usuario.png" class="usuario">
         </div>
     </nav>
@@ -29,45 +29,21 @@
             <input type="text" name="tituloEncuesta" id="tituloEncuesta" placeholder="Titulo de la encuesta..." class="inputs">
             <input type="text" name="descripcionEncuesta" id="descripcionEncuesta" placeholder="Descripcion..." class="inputs">
         </div>
+        <div id="preguntas-añadidas">
 
-        <!-- Pregunta y tipo -->
-       <div class="preguntas" id="preguntas-container">
-    <div class="fila-pregunta">
-        <input type="text" placeholder="Pregunta" class="inputs">
-        <select id="tipo" name="opciones" class="selector">
-            <option value="1">Opcion multiple</option>
-            <option value=2>Pregunta abierta</option>
-            <option value=3>Casillas de verificación</option>
-        </select>
-    </div>
-
-    <div class="contenedor-botones">
-        <button type="button" class="boton-agregar" id="agregar-pregunta">
-            <img src="../../imagenes/anadir.png" class="botonHeaders">
-            Agregar nueva opcion
-        </button>
-    </div>
-    <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkmark"></span>
-        Opción de ejemplo
-    </label>
-    
-
-</div>
-
-
+        </div>
 
         <!-- Barra lateral vertical -->
-        <div class="barra-lateral">
-            <a><img src="../../imagenes/anadir.png" class="botonHeaders"></a>
+        <div class="contenedor-opci">
+            <button id="agregar-pregunta"><img src="../../imagenes/anadir.png" class="botonHeaders"></button>
             <a><img src="../../imagenes/subir.png" class="botonHeaders"></a>
             <a><img src="../../imagenes/subirVideo.png" class="botonHeaders"></a>
+            
         </div>
 
     </form>
 
-    <script src="../../js/scriptsAdmin/Script_generateForm.js"></script>
+    <script src="../../js/scriptsAdmin/generarRespuestas.js"></script>
 
 </body>
 </html>

@@ -172,5 +172,34 @@ nav {
 .checkbox-container input:checked + .checkmark::after {
     display: block;
 }
+.contenedor-opci {
+    position: fixed;     
+    top: 400px;           
+    right: 20px;         
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;              
+    background-color: #fff; 
+    padding: 10px;
+    border-radius: 8px;    
+    box-shadow: 0 0 10px rgba(0,0,0,0.2); 
+    z-index: 1000;       
+    background-color: lightgray;   
+}
+.btn-borrar {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    
+}
+
+.btn-borrar:hover {
+    background-color: #ff1a1a;
+}
+
 
 
