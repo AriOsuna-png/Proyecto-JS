@@ -1,0 +1,79 @@
+nav {
+    background-color: #666;
+    padding: 5px;
+    font-size: 35px;
+    color: white;
+    display: flex;                 
+    justify-content: space-between;
+    align-items: center;          
+    border-radius: 10px;
+}
+
+.contenedor-botones {
+    display: flex;  
+    gap: 10px;      
+}
+.contenedor-usuario{
+    display: flex;  
+    gap: 10px;    
+    align-items: center;  
+    
+}
+
+.contenedor-mas{
+    width: 40px;
+    height: 40px;
+    margin-left: 350px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.contenedor-form{
+    margin-left: 10px;
+    background-color: #666;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+.contenedor-form-header {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+}
+
+.opci{
+    width: 35px;
+    height: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.contenedor-opci{
+    margin-top: -350px;
+    margin-left: 1830px;
+    border-radius: 10px;
+    background-color: #666;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.botonHeaders {
+    width: 30px;     
+    height: 30px;
+    cursor: pointer; 
+}
+.usuario{
+    width: 30px;
+    height: 30px;
+    border: 2px solid;
+    border-radius: 50%;
+
+
+}
