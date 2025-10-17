@@ -200,6 +200,10 @@ nav {
 .btn-borrar:hover {
     background-color: #ff1a1a;
 }
+.oculto {
+    display: none;
+}
+
 
 
 

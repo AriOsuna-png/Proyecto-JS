@@ -18,7 +18,7 @@ function generarRespuesta(bloque, i, tipo) {
         textRadio.placeholder = "Opción...";
         textRadio.classList.add("inputs");
         pregunta_nueva.appendChild(textRadio);
-
+        
     } else if (tipo === "2") { // Pregunta abierta
         const respueta = document.createElement("input");
         respueta.type = "text";
@@ -55,6 +55,7 @@ function generarRespuesta(bloque, i, tipo) {
 contenedorPreguntas.addEventListener("click", (event) => {
     const botonAgregar = event.target.closest(".boton-agregar");
     const botonEliminar = event.target.closest(".btn-borrar");
+    const botonElimarPreguntas = event.target.closest(".botonBorrarPreguntas");
 
     if (botonAgregar) {
         const bloque = botonAgregar.closest(".preguntas");
@@ -86,38 +87,73 @@ contenedorPreguntas.addEventListener("click", (event) => {
             bloque.i = 0;
         }
     }
+
+    if (botonElimarPreguntas){
+        const bloque = botonElimarPreguntas.closest(".preguntas");
+        bloque.remove();
+
+    }
 });
 
 // Función para crear un nuevo bloque de preguntas
 const botonAgregarPregunta = document.getElementById("agregar-pregunta");
+let numeroPreguntas = 0;
 botonAgregarPregunta.addEventListener("click", (e) => {
+    numeroPreguntas +=1;
     e.preventDefault(); // Prevenir envío del formulario
-    crearNuevoContenedor();
+    crearNuevoContenedor(numeroPreguntas);
 });
 
 function crearNuevoContenedor() {
     const nuevo = document.createElement("div");
+    nuevo.id = numeroPreguntas;
     nuevo.classList.add("preguntas");
 
     nuevo.innerHTML = `
-        <div class="fila-pregunta">
-            <input type="text" placeholder="Pregunta" class="inputs">
-            <select name="opciones" class="selector">
-                <option value="1">Opción múltiple</option>
-                <option value="2">Pregunta abierta</option>
-                <option value="3">Casillas de verificación</option>
-            </select>
-        </div>
+    <div class="fila-pregunta">
+        <input type="text" placeholder="Pregunta" class="inputs">
+        <select name="opciones" class="selector">
+            <option value="1">Opción múltiple</option>
+            <option value="2">Pregunta abierta</option>
+            <option value="3">Casillas de verificación</option>
+        </select>
+    </div>
 
-        <div class="respuestas-añadidas"></div> <!-- Aquí se agregarán las respuestas -->
+    <div class="respuestas-añadidas"></div>
 
-        <div class="contenedor-botones">
-            <button type="button" class="boton-agregar">
-                <img src="../../imagenes/anadir.png" class="botonHeaders">
-                Agregar nueva opción
-            </button>
-        </div>
+    <div class="contenedor-botones">
+        <button type="button" class="boton-agregar">
+            <img src="../../imagenes/anadir.png" class="botonHeaders">
+            Agregar nueva opción
+        </button>
+        
+        <!-- Botón de borrar (oculto por defecto) -->
+        <button class="boton-borrar oculto">
+            <img src="../../imagenes/eliminar.png" class="botonBorrarPreguntas">
+        </button>
+    </div>
     `;
+
 
     contenedorPreguntas.appendChild(nuevo);
 }
+
+
+function VisualizarBotonBorrar(){
+
+    const ultimoBloque = document.querySelector(".preguntas:last-child");
+    const botonBorrar = ultimoBloque.querySelector(".boton-borrar");
+
+    botonBorrar.classList.remove("oculto");  // ✅ Se muestra
+    // o: botonBorrar.style.display = "block";
+
+}
+
+
+const botonBorrarPreguntas = document.getElementById("borrar-pregunta");
+botonBorrarPreguntas.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    
+    VisualizarBotonBorrar();
+    
+});
