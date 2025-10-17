@@ -139,21 +139,39 @@ function crearNuevoContenedor() {
 }
 
 
-function VisualizarBotonBorrar(){
+function visualizarBotonBorrar() {
+    const bloques = document.querySelectorAll(".preguntas"); // Todos los bloques
 
-    const ultimoBloque = document.querySelector(".preguntas:last-child");
-    const botonBorrar = ultimoBloque.querySelector(".boton-borrar");
+    bloques.forEach(bloque => {
+        const botonBorrar = bloque.querySelector(".boton-borrar");
+        if (botonBorrar) {
+            botonBorrar.classList.remove("oculto"); // Mostrar botón
+        }
+    });
+}
+function ocultarBotonBorrar() {
+    const bloques = document.querySelectorAll(".preguntas"); // Todos los bloques
 
-    botonBorrar.classList.remove("oculto");  // ✅ Se muestra
-    // o: botonBorrar.style.display = "block";
-
+    bloques.forEach(bloque => {
+        const botonBorrar = bloque.querySelector(".boton-borrar");
+        if (botonBorrar) {
+            botonBorrar.classList.add("oculto"); // Mostrar botón
+        }
+    });
 }
 
 
 const botonBorrarPreguntas = document.getElementById("borrar-pregunta");
+let botonesVisibles = false;
+
 botonBorrarPreguntas.addEventListener("click", (e) => {
-    e.preventDefault(); 
-    
-    VisualizarBotonBorrar();
-    
+    e.preventDefault();
+    if (!botonesVisibles) {
+        visualizarBotonBorrar();
+        botonesVisibles = true;
+    } else {
+        ocultarBotonBorrar();
+        botonesVisibles = false;
+    }
 });
+
