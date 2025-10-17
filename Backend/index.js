@@ -1,10 +1,20 @@
-const http = require('http');
-const { text } = require('stream/consumers');
+const express = require('express');
+const app = express();
 
-const app = http.createServer((request, response)=>{
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('mi primer servidor');
+const users = [
+    {id:1, usuario: 'Piedro'},
+    {id:2, usuario: 'Piedro1'},
+    {id:3, usuario: 'Piedro2'}
+]
+
+ app.get('/', (request, response) => {
+    response.writeHead(200, {'Content-Type': 'application/json'});
+    response.end(JSON.stringify(users));
 });
+
+app.get('/api/users', (request, response) => {
+    response.json(users);
+})
 
 const PORT = 3001;
 app.listen(PORT, ()=>{
