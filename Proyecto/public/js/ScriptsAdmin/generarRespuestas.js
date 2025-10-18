@@ -175,3 +175,29 @@ botonBorrarPreguntas.addEventListener("click", (e) => {
     }
 });
 
+const btnGuardar = document.getElementById("btnGuardar");
+btnGuardar.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try{
+        const tituloEncuesta = document.getElementById("tituloEncuesta").value;
+        const descripcionEncuesta = document.getElementById("descripcionEncuesta").value;
+        const idUsuario = sessionStorage.getItem("usuarioID");
+    
+        const response = await fetch('/guardar', {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ tituloEncuesta, descripcionEncuesta, idUsuario })
+        });
+
+        const data = await response.json();
+        console.log(data);
+        alert("Encuesta creada con el titulo: " + tituloEncuesta);
+    }catch(error){
+    console.error(error);
+    alert("Error al crear encuesta");
+    }
+});
+
+
+
+

@@ -3,6 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const { connectDB } = require("./db");
 const bcrypt = require("bcryptjs");
+const { error } = require("console");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -81,6 +82,33 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.post('/guardar', async (req, res) => {
+  try{
+    const {tituloEncuesta, descripcionEncuesta, idUsuario} = req.body;
+
+    if (!tituloEncuesta || !descripcionEncuesta){
+      return res.status(400).json({error: "completa todos los campos"});
+    }
+
+    const db = await connectDB();
+    const collection = db.collection('encuestas');
+
+    const resultado = await collection.insertOne({
+      tituloEncuesta,
+      descripcionEncuesta,
+      idUsuario
+
+    });
+    res.json({mensaje:"datos de la encuesta añadidos correctamente", id:resultado.insertedId});
+
+
+  }catch(error){
+    console.error("Error al crear encuesta:", error);
+    res.status(500).json({ error: error.message });
+
+  }
+
+});
 
 const PORT = 3001;
 app.listen(PORT, ()=>{

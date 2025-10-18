@@ -17,7 +17,9 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
     if (response.ok) {
       alert("Bienvenido " + data.usuario.nombre);
 
-      // ✅ Aquí decidimos a qué página ir según el tipo
+      sessionStorage.setItem("usuarioID", data.usuario._id);
+      console.log("ID guardado:", data.usuario._id);
+
       if (data.usuario.tipo === "admin") {
         window.location.href = "/html/Admin/adminIndex.html";
       } else {
