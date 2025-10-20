@@ -3,13 +3,14 @@ const contenedorPreguntas = document.getElementById("preguntas-añadidas");
 // Función para crear una nueva respuesta según tipo
 function generarRespuesta(bloque, i, tipo) {
     const pregunta_nueva = document.createElement("div");
+    const idPregunta = bloque.id; 
     pregunta_nueva.classList.add("fila-pregunta");
     pregunta_nueva.id = `pregunta_${i}`;
 
     if (tipo === "1") { // Opción múltiple
         const radioButton = document.createElement("input");
         radioButton.type = "radio";
-        radioButton.name = `respuestaGrupo_${i}`;
+        radioButton.name = `respuestaGrupo_${idPregunta}`;
         radioButton.classList.add("radio-opcion");
         pregunta_nueva.appendChild(radioButton);
 
@@ -175,9 +176,45 @@ botonBorrarPreguntas.addEventListener("click", (e) => {
     }
 });
 
+function obtenerPreguntas() {
+    const bloques = document.querySelectorAll(".preguntas");
+    const datos = []; 
+
+    bloques.forEach((bloque, index) => {
+        console.log(`Pregunta ${index + 1}:`);
+
+        const inputPregunta = bloque.querySelector('.fila-pregunta input');
+        const textoPregunta = inputPregunta?.value.trim() || "";
+        console.log("Texto:", textoPregunta);
+
+        // Obtener respuestas
+        const respuestas = [];
+        const filasRespuestas = bloque.querySelectorAll('.respuestas-añadidas .fila-pregunta');
+        
+        filasRespuestas.forEach((respuesta, i) => {
+            const inputRespuesta = respuesta.querySelector('input[type="text"]');
+            const textoRespuesta = inputRespuesta?.value.trim() || "";
+            console.log(`   Opción ${i + 1}: ${textoRespuesta}`);
+
+            respuestas.push(textoRespuesta);
+        });
+
+        // Guardar en un objeto si se necesita enviar al backend o similar
+        datos.push({
+            pregunta: textoPregunta+1,
+            opciones: respuestas
+        });
+    });
+
+    return datos; // Por si quieres usar los datos en otro lugar
+}
+
+
+
 const btnGuardar = document.getElementById("btnGuardar");
 btnGuardar.addEventListener("click", async (e) => {
     e.preventDefault();
+    let datos = obtenerPreguntas();
     try{
         const tituloEncuesta = document.getElementById("tituloEncuesta").value;
         const descripcionEncuesta = document.getElementById("descripcionEncuesta").value;
@@ -186,7 +223,7 @@ btnGuardar.addEventListener("click", async (e) => {
         const response = await fetch('/guardar', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ tituloEncuesta, descripcionEncuesta, idUsuario })
+            body: JSON.stringify({ tituloEncuesta, descripcionEncuesta, idUsuario, datos})
         });
 
         const data = await response.json();

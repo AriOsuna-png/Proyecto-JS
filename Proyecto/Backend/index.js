@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/guardar', async (req, res) => {
   try{
-    const {tituloEncuesta, descripcionEncuesta, idUsuario} = req.body;
+    const {tituloEncuesta, descripcionEncuesta, idUsuario, datos} = req.body;
 
     if (!tituloEncuesta || !descripcionEncuesta){
       return res.status(400).json({error: "completa todos los campos"});
@@ -96,7 +96,9 @@ app.post('/guardar', async (req, res) => {
     const resultado = await collection.insertOne({
       tituloEncuesta,
       descripcionEncuesta,
-      idUsuario
+      idUsuario,
+      datos,
+      creado: new Date()
 
     });
     res.json({mensaje:"datos de la encuesta añadidos correctamente", id:resultado.insertedId});
