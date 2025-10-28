@@ -16,7 +16,7 @@ function generarRespuesta(bloque, i, tipo) {
 
         const textRadio = document.createElement("input");
         textRadio.type = "text";
-        textRadio.placeholder = "Opción...";
+        textRadio.placeholder = `Nueva opción`;
         textRadio.classList.add("inputs");
         pregunta_nueva.appendChild(textRadio);
         
@@ -35,7 +35,7 @@ function generarRespuesta(bloque, i, tipo) {
 
         const textCheckbox = document.createElement("input");
         textCheckbox.type = "text";
-        textCheckbox.placeholder = "Opción...";
+        textCheckbox.placeholder = "Nueva opción";
         textCheckbox.classList.add("inputs");
         pregunta_nueva.appendChild(textCheckbox);
     }
@@ -53,25 +53,18 @@ function generarRespuesta(bloque, i, tipo) {
 }
 
 // Delegación de eventos para botones "Agregar nueva opción" y eliminar
+// Delegación de eventos para botones "Agregar nueva opción" y eliminar
 contenedorPreguntas.addEventListener("click", (event) => {
-    const botonAgregar = event.target.closest(".boton-agregar");
+    const botonAgregar = event.target.closest(".boton-agregar");    
     const botonEliminar = event.target.closest(".btn-borrar");
     const botonElimarPreguntas = event.target.closest(".botonBorrarPreguntas");
 
     if (botonAgregar) {
         const bloque = botonAgregar.closest(".preguntas");
         if (!bloque.i) bloque.i = 0;
-        if (!bloque.tipoActual) bloque.tipoActual = null;
 
         const select = bloque.querySelector("select");
         const tipoSeleccionado = select.value;
-
-        // Validación de tipo
-        if (!bloque.tipoActual) bloque.tipoActual = tipoSeleccionado;
-        if (bloque.tipoActual !== tipoSeleccionado) {
-            alert("Solo puedes agregar respuestas del mismo tipo. Elimina las anteriores si quieres cambiar el tipo.");
-            return;
-        }
 
         bloque.i++;
         generarRespuesta(bloque, bloque.i, tipoSeleccionado);
@@ -82,9 +75,8 @@ contenedorPreguntas.addEventListener("click", (event) => {
         const bloque = fila.closest(".preguntas");
         fila.remove();
 
-        // Reiniciar si no quedan preguntas
-        if (bloque.querySelectorAll(".fila-pregunta").length-1 === 0) {
-            bloque.tipoActual = null;
+        // Reiniciar si no quedan respuestas
+        if (bloque.querySelectorAll(".fila-pregunta").length - 1 === 0) {
             bloque.i = 0;
         }
     }
@@ -92,9 +84,11 @@ contenedorPreguntas.addEventListener("click", (event) => {
     if (botonElimarPreguntas){
         const bloque = botonElimarPreguntas.closest(".preguntas");
         bloque.remove();
-
     }
 });
+
+
+
 
 // Función para crear un nuevo bloque de preguntas
 const botonAgregarPregunta = document.getElementById("agregar-pregunta");
@@ -128,16 +122,104 @@ function crearNuevoContenedor() {
             Agregar nueva opción
         </button>
         
-        <!-- Botón de borrar (oculto por defecto) -->
         <button class="boton-borrar oculto">
             <img src="../../imagenes/eliminar.png" class="botonBorrarPreguntas">
         </button>
     </div>
     `;
 
-
     contenedorPreguntas.appendChild(nuevo);
+
+    const selector = nuevo.querySelector(".selector");
+    const contenedorRespuestas = nuevo.querySelector(".respuestas-añadidas");
+    const botonAgregar = nuevo.querySelector(".boton-agregar");
+
+    // 🟩 Función para crear una fila de respuesta con botón borrar
+    function crearFilaRespuesta(tipoInput, placeholder, name) {
+        const fila = document.createElement("div");
+        fila.classList.add("fila-pregunta");
+
+        const inputOpcion = document.createElement("input");
+        inputOpcion.type = tipoInput;
+        inputOpcion.name = name;
+        inputOpcion.classList.add("radio-opcion");
+
+        const inputTexto = document.createElement("input");
+        inputTexto.type = "text";
+        inputTexto.placeholder = placeholder;
+        inputTexto.classList.add("inputs");
+
+        // 🟥 Botón eliminar opción
+        const botonBorrar = document.createElement("button");
+        botonBorrar.textContent = "X";
+        botonBorrar.classList.add("btn-borrar");
+
+        // Evento para borrar la fila actual
+        botonBorrar.addEventListener("click", () => {
+            fila.remove();
+        });
+
+        fila.appendChild(inputOpcion);
+        fila.appendChild(inputTexto);
+        fila.appendChild(botonBorrar);
+
+        return fila;
+    }
+
+   selector.addEventListener("change", () => {
+    const tipo = selector.value;
+    contenedorRespuestas.innerHTML = ""; // Limpia respuestas
+
+    if (tipo === "1") {
+        // Opción múltiple (radio)
+        for (let i = 1; i <= 2; i++) {
+            contenedorRespuestas.appendChild(
+                crearFilaRespuesta("radio", `Nueva opción`, `respuesta-${nuevo.id}`)
+            );
+        }
+        botonAgregar.style.visibility = "visible";
+    } else if (tipo === "2") {
+        // Pregunta abierta
+        const fila = document.createElement("div");
+        fila.classList.add("fila-pregunta");
+
+        const inputTexto = document.createElement("input");
+        inputTexto.type = "text";
+        inputTexto.placeholder = "Respuesta abierta...";
+        inputTexto.classList.add("inputs");
+
+        fila.appendChild(inputTexto);
+        contenedorRespuestas.appendChild(fila);
+        botonAgregar.style.visibility = "hidden"; // Ocultar botón
+    } else if (tipo === "3") {
+        // Casillas de verificación (checkbox)
+        for (let i = 1; i <= 2; i++) {
+            contenedorRespuestas.appendChild(
+                crearFilaRespuesta("checkbox", `Nueva opción`, `respuesta-${nuevo.id}`)
+            );
+        }
+        botonAgregar.style.visibility = "visible";
+    }
+});
+
+
+    // ➕ Botón para agregar nuevas opciones manualmente
+    botonAgregar.addEventListener("click", () => {
+        const tipo = selector.value;
+
+        if (tipo === "2") {
+            alert("Las preguntas abiertas no requieren opciones adicionales.");
+        }
+    });
+
+    // Crear por defecto 2 opciones si es múltiple al inicio
+    for (let i = 1; i <= 2; i++) {
+        contenedorRespuestas.appendChild(
+            crearFilaRespuesta("radio", `Nueva opción`, `respuesta-${nuevo.id}`)
+        );
+    }
 }
+
 
 
 function visualizarBotonBorrar() {
@@ -181,33 +263,35 @@ function obtenerPreguntas() {
     const datos = []; 
 
     bloques.forEach((bloque, index) => {
-        console.log(`Pregunta ${index + 1}:`);
-
         const inputPregunta = bloque.querySelector('.fila-pregunta input');
         const textoPregunta = inputPregunta?.value.trim() || "";
-        console.log("Texto:", textoPregunta);
 
-        // Obtener respuestas
+        // Si la pregunta está vacía, no la guardamos
+        if (textoPregunta === "") return;
+
         const respuestas = [];
         const filasRespuestas = bloque.querySelectorAll('.respuestas-añadidas .fila-pregunta');
         
         filasRespuestas.forEach((respuesta, i) => {
             const inputRespuesta = respuesta.querySelector('input[type="text"]');
             const textoRespuesta = inputRespuesta?.value.trim() || "";
-            console.log(`   Opción ${i + 1}: ${textoRespuesta}`);
 
-            respuestas.push(textoRespuesta);
+            // Solo guardamos si tiene texto
+            if (textoRespuesta !== "") {
+                respuestas.push(textoRespuesta);
+            }
         });
 
-        // Guardar en un objeto si se necesita enviar al backend o similar
+        // Guardamos solo si hay pregunta y (opcionalmente) respuestas
         datos.push({
-            pregunta: textoPregunta+1,
+            pregunta: textoPregunta,
             opciones: respuestas
         });
     });
 
-    return datos; // Por si quieres usar los datos en otro lugar
+    return datos; // Puedes enviar estos datos al backend
 }
+
 
 
 
