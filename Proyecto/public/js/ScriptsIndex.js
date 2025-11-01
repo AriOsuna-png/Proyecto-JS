@@ -23,7 +23,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
       if (data.usuario.tipo === "admin") {
         window.location.href = "/html/Admin/adminIndex.html";
       } else {
-        window.location.href = "/html/user.html";
+        window.location.href = "/html/Users/userIndex.html";
       }
 
     } else {

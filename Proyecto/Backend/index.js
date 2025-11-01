@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/guardar', async (req, res) => {
   try{
-    const {tituloEncuesta, descripcionEncuesta, idUsuario, datos} = req.body;
+    const {tituloEncuesta, descripcionEncuesta,clave, idUsuario, datos} = req.body;
 
     if (!tituloEncuesta || !descripcionEncuesta){
       return res.status(400).json({error: "completa todos los campos"});
@@ -96,6 +96,7 @@ app.post('/guardar', async (req, res) => {
     const resultado = await collection.insertOne({
       tituloEncuesta,
       descripcionEncuesta,
+      clave,
       idUsuario,
       datos,
       creado: new Date()
@@ -110,6 +111,49 @@ app.post('/guardar', async (req, res) => {
 
   }
 
+});
+
+//obtiene la encuesta 
+app.post('/obtenerEncuesta', async (req, res) => {
+  try {
+    console.log('Body recibido:', req.body); // Ver qué llega
+    const { clave } = req.body;
+    
+    console.log('Clave extraída:', clave); // Verificar la clave
+    
+    if (!clave) {
+      return res.status(400).json({
+        success: false,
+        message: 'La clave es requerida'
+      });
+    }
+    
+    // Buscar encuesta
+    const db = await connectDB();
+    const collection = db.collection('encuestas');
+    const encuesta = await collection.findOne({ clave: clave });
+    console.log('Encuesta encontrada:', encuesta); // Ver resultado
+    
+    if (!encuesta) {
+      return res.status(404).json({
+        success: false,
+        message: 'Encuesta no encontrada'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: encuesta
+    });
+    
+  } catch (error) {
+    console.error('Error completo:', error); // ⭐ Ver el error exacto
+    res.status(500).json({
+      success: false,
+      message: 'Error al obtener la encuesta',
+      error: error.message // Enviar detalles del error
+    });
+  }
 });
 
 const PORT = 3001;

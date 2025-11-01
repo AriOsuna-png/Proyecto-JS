@@ -262,9 +262,13 @@ function obtenerPreguntas() {
     const bloques = document.querySelectorAll(".preguntas");
     const datos = []; 
 
-    bloques.forEach((bloque, index) => {
+    bloques.forEach((bloque) => {
         const inputPregunta = bloque.querySelector('.fila-pregunta input');
         const textoPregunta = inputPregunta?.value.trim() || "";
+
+        // Obtener el tipo directamente del selector dentro del bloque
+        const selector = bloque.querySelector(".selector");
+        const tipo = selector ? selector.value : "1"; // Por defecto "1" (opción múltiple)
 
         // Si la pregunta está vacía, no la guardamos
         if (textoPregunta === "") return;
@@ -272,7 +276,7 @@ function obtenerPreguntas() {
         const respuestas = [];
         const filasRespuestas = bloque.querySelectorAll('.respuestas-añadidas .fila-pregunta');
         
-        filasRespuestas.forEach((respuesta, i) => {
+        filasRespuestas.forEach((respuesta) => {
             const inputRespuesta = respuesta.querySelector('input[type="text"]');
             const textoRespuesta = inputRespuesta?.value.trim() || "";
 
@@ -282,15 +286,17 @@ function obtenerPreguntas() {
             }
         });
 
-        // Guardamos solo si hay pregunta y (opcionalmente) respuestas
+        // Guardamos los datos de cada bloque
         datos.push({
             pregunta: textoPregunta,
+            tipo: tipo,
             opciones: respuestas
         });
     });
 
-    return datos; // Puedes enviar estos datos al backend
+    return datos; 
 }
+
 
 
 
@@ -299,15 +305,16 @@ const btnGuardar = document.getElementById("btnGuardar");
 btnGuardar.addEventListener("click", async (e) => {
     e.preventDefault();
     let datos = obtenerPreguntas();
-    try{
+    try{    
         const tituloEncuesta = document.getElementById("tituloEncuesta").value;
         const descripcionEncuesta = document.getElementById("descripcionEncuesta").value;
+        const clave = document.getElementById("claveEncuesta").value
         const idUsuario = sessionStorage.getItem("usuarioID");
     
         const response = await fetch('/guardar', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ tituloEncuesta, descripcionEncuesta, idUsuario, datos})
+            body: JSON.stringify({ tituloEncuesta, descripcionEncuesta, clave, idUsuario, datos})
         });
 
         const data = await response.json();
