@@ -113,7 +113,7 @@ app.post('/guardar', async (req, res) => {
 
 });
 
-//obtiene la encuesta 
+//obtiene los datos de la encuesta 
 app.post('/obtenerEncuesta', async (req, res) => {
   try {
     console.log('Body recibido:', req.body); // Ver qué llega
@@ -132,8 +132,7 @@ app.post('/obtenerEncuesta', async (req, res) => {
     const db = await connectDB();
     const collection = db.collection('encuestas');
     const encuesta = await collection.findOne({ clave: clave });
-    console.log('Encuesta encontrada:', encuesta); // Ver resultado
-    
+
     if (!encuesta) {
       return res.status(404).json({
         success: false,
@@ -147,7 +146,7 @@ app.post('/obtenerEncuesta', async (req, res) => {
     });
     
   } catch (error) {
-    console.error('Error completo:', error); // ⭐ Ver el error exacto
+    console.error('Error completo:', error); 
     res.status(500).json({
       success: false,
       message: 'Error al obtener la encuesta',
