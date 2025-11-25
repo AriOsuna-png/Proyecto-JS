@@ -27,6 +27,9 @@ document.getElementById("buscarEncuesta").addEventListener("submit", async (even
         // Recorrer las preguntas
         data.data.datos.forEach((p, index) => {
             const div = document.createElement("div");
+            const form = document.createElement("form");
+
+            //veridica el tipo de pregunta y crea los campos para responder 
 
             div.innerHTML = `
                 <h2>${index + 1}. ${p.pregunta}</h2>
@@ -36,21 +39,49 @@ document.getElementById("buscarEncuesta").addEventListener("submit", async (even
                 
                 
                 }
-                
-                
-                
+                        
                 </p>
                 
                 
+                ${p.opciones && p.opciones.length > 0 ? 
 
-                ${p.opciones && p.opciones.length > 0
-                    ? `${p.opciones.map(op => `${op}`).join("")}`
+
+                    `${p.tipo == 1 ? p.opciones.map( (op,i) => `
+
+                        <input type="radio" id="opcion-${i}" name="pregunta${index}" value="?">
+                        <label for="opcion-${i}">${op}</label><br>
+                        
+                    `).join(""):
+
+
+
+                    p.tipo == 2 ? p.opciones.map(op => `
+                        <input type="text" placeholder="tu respuesta...">
+                        
+                        
+                    `).join(""):
+
+
+                    p.opciones.map( (op, i) => `
+                     
+                        
+                        <input type="checkbox" id="opcion-${i}" name="opcion-${i}" value="?">
+                        <label for="opcion-${i}">${op}</label><br>
+                        
+                            
+                        
+
+                    `).join("")}`
+
+
+
                     : `<p>Sin opciones (pregunta abierta)</p>`}
                     
                 <hr>
             `;
 
             preguntas.appendChild(div);
+            
         });
 
     } catch (error) {
