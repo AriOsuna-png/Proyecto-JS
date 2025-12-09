@@ -1,10 +1,10 @@
 const idUsuario = sessionStorage.getItem("usuarioID");
-console.log(idUsuario);
 
 if(!idUsuario){
     console.error("No hay usuario logueado en sessionStorage");
 } else {
     cargarEncuestasUsuario(idUsuario);
+    obtenerNombreUsuario();  // importante para que cargue el nombre
 }
 
 //========== Obtener encuestas ==========
@@ -24,9 +24,24 @@ async function cargarEncuestasUsuario(id){
     }catch(error){
         console.error("Error al obtener encuestas:", error);
     }
+} 
+
+async function obtenerNombreUsuario() {
+    const id = sessionStorage.getItem("usuarioID");
+
+    const res = await fetch(`http://localhost:3001/obtenerNombreUsuario/${id}`);
+    const data = await res.json();
+
+    console.log(data);
+
+    if(data.success){
+        document.getElementById("usuario").innerText = data.nombre;
+    }
+    console.log(data.nombre);
 }
 
 //========== Pintar encuestas ==========
+//--> Se guarda el ObjectId en sessionStorage al dar clic
 function mostrarEncuestas(encuestas){
     const contenedor = document.getElementById("contenedor-encuestas");
     contenedor.innerHTML = "";
@@ -37,13 +52,22 @@ function mostrarEncuestas(encuestas){
         div.classList.add("contenedor-form");
 
         div.innerHTML = `
-        
             <h1>${enc.tituloEncuesta}</h1>
             <h3>${enc.descripcionEncuesta}</h3>
-            
+
+            <button class="opci ver-encuesta" data-id="${enc._id}">
+                <img src="../../imagenes/vista.png" class="opci">
+            </button>
         `;
 
         contenedor.appendChild(div);
         contenedor.appendChild(br);
+
+        // Evento para guardar el ObjectId al presionar el botón
+        div.querySelector(".ver-encuesta").addEventListener("click", () => {
+            sessionStorage.setItem("idEncuesta", enc._id); // Guarda ObjectId
+            window.location.href = "../../html/Admin/respuestas.html"; // Redirección
+        });
     });
 }
+

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CreateForms</title>
-    <link rel="stylesheet" href="../../css/StyleAdmin/styleAdminIndex.css">
+    <link rel="stylesheet" href="../../css/StyleAdmin/respuestas.css">
 </head>
 <body>
     
@@ -15,8 +15,8 @@
         </div>
 
         <div class="contenedor-botones">
+            <a href="./adminIndex.html"><img src="../../imagenes/volver.png" class="botonHeaders"></a>
             <a href="../../index.html"><img src="../../imagenes/cerrar-sesion.png" class="botonHeaders"></a>
-            <a><img src="../../imagenes/engranaje.png" class="botonHeaders"></a>
         </div>
     </nav>
 
@@ -25,21 +25,13 @@
     <!-- Contenedor donde se mostrarán las encuestas del usuario -->
     <div id="contenedor-encuestas"></div>
 
-    <!-- Botón para crear nueva encuesta -->
-    <a href="./generateForm.html" class="contenedor-form contenedor-form-header">
-        <h2>Nuevo Formulario</h2>
-        <img src="../../imagenes/mas.png" class="contenedor-mas">
-    </a>
+    <div id="encuestaContenedor">
 
-    <div class="contenedor-opci">
-        <a><img src="../../imagenes/eliminar.png" class="opci"></a>
-        <a href="#"><img src="../../imagenes/edit.png" class="opci"></a>
-        <a href="#"><img src="../../imagenes/ver.png" class="opci"></a>
+        
     </div>
-    
 
 
-    <script src="../../js/ScriptsAdmin/adminIndex.js"></script>
+    <script src="../../js/ScriptsAdmin/respuestas.js"></script>
 
     <!-- Ejecuta funciones al cargar la página -->
     <script>
@@ -49,7 +41,6 @@
             if(!idUsuario){
                 console.error("No hay usuario logueado en sessionStorage");
             } else {
-                cargarEncuestasUsuario(idUsuario);
                 obtenerNombreUsuario(); // << Se agregó para mostrar el nombre
             }
         });

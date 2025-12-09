@@ -24,30 +24,28 @@ app.post("/usuarios", async (req, res) => {
     const db = await connectDB();
     const collection = db.collection("usuarios");
 
-    // Verificar si el usuario ya existe
     const existe = await collection.findOne({ nombre });
     if (existe) {
       return res.status(400).json({ error: "El usuario ya existe" });
     }
 
-    // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Guardar usuario
     const resultado = await collection.insertOne({
       nombre,
       password: hashedPassword,
-      tipo,        // ✅ Guardamos el tipo
+      tipo,
       creadoEn: new Date()
     });
 
-    res.json({ mensaje: "Usuario creado", id: resultado.insertedId });
+    res.json({ success:true, mensaje: "Usuario creado", id: resultado.insertedId });
 
   } catch (error) {
     console.error("Error al crear usuario:", error);
     res.status(500).json({ error: error.message });
   }
-});//fin usuarios
+});
+
 
 app.post('/login', async (req, res) => {
     try{
@@ -85,34 +83,30 @@ app.post('/login', async (req, res) => {
 
 app.post('/guardar', async (req, res) => {
   try{
-    const {tituloEncuesta, descripcionEncuesta,clave, idUsuario, datos} = req.body;
+    const {tituloEncuesta, descripcionEncuesta, clave, idUsuario, datos} = req.body;
 
-    if (!tituloEncuesta || !descripcionEncuesta){
-      return res.status(400).json({error: "completa todos los campos"});
+    if (!tituloEncuesta || !descripcionEncuesta || !idUsuario){
+      return res.status(400).json({error: "completa los campos requeridos"});
     }
 
     const db = await connectDB();
-    const collection = db.collection('encuestas');
-
-    const resultado = await collection.insertOne({
+    const resultado = await db.collection('encuestas').insertOne({
       tituloEncuesta,
       descripcionEncuesta,
       clave,
-      idUsuario: new ObjectId(idUsuario),
+      idUsuario: new ObjectId(idUsuario),  // ← siempre ObjectId
       datos,
       creado: new Date()
-
     });
-    res.json({mensaje:"datos de la encuesta añadidos correctamente", id:resultado.insertedId});
 
+    res.json({success:true, mensaje:"Encuesta creada correctamente", id:resultado.insertedId});
 
-  }catch(error){
+  } catch(error){
     console.error("Error al crear encuesta:", error);
     res.status(500).json({ error: error.message });
-
   }
-
 });
+
 
 //obtiene los datos de la encuesta 
 app.post('/obtenerEncuesta', async (req, res) => {
@@ -156,6 +150,30 @@ app.post('/obtenerEncuesta', async (req, res) => {
   }
 });
 
+app.post('/obtenerEncuestaID', async (req, res) => {
+  try {
+    const { idEncuesta } = req.body;
+
+    if (!idEncuesta) {
+      return res.status(400).json({ success: false, message: "Falta idEncuesta" });
+    }
+
+    const db = await connectDB();
+    const collection = db.collection("encuestas");
+
+    const encuesta = await collection.findOne({ _id: new ObjectId(idEncuesta) });
+
+    if (!encuesta) {
+      return res.status(404).json({ success: false, message: "Encuesta no encontrada" });
+    }
+
+    res.json({ success: true, data: encuesta });
+
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 app.post("/guardarRespuestas", async(req,res)=>{
     try{
         const {idEncuesta,idUsuario,respuestas} = req.body;
@@ -181,32 +199,45 @@ app.get("/encuestasUsuario/:idUsuario", async (req, res) => {
     try {
         const idUsuario = req.params.idUsuario;
 
-        const db = await connectDB();  // Conexión correcta a MongoDB
-        const collection = db.collection("encuestas");
+        const db = await connectDB();
+        const encuestas = await db.collection("encuestas")
+            .find({ idUsuario: new ObjectId(idUsuario) })   // ← Buscar solo del usuario
+            .toArray();
 
-        const encuestas = await collection.find({ idUsuario: new ObjectId(idUsuario) }).toArray();
-
-        return res.json({
-            success: true,
-            encuestas
-        });
+        res.json({ success:true, encuestas });
 
     } catch (error) {
         console.error("Error en /encuestasUsuario:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Error al obtener encuestas",
-            error: error.message
-        });
+        res.status(500).json({ success:false, message:"Error al obtener encuestas", error:error.message });
     }
 });
 
 
+app.get("/obtenerNombreUsuario/:idUsuario", async (req, res) => {
+    try {
+        const idUsuario = req.params.idUsuario;
 
+        if (!idUsuario) {
+            return res.status(400).json({ success:false, message:"Falta idUsuario" });
+        }
 
+        const db = await connectDB();
+        const usuario = await db.collection("usuarios").findOne({ _id: new ObjectId(idUsuario) });
 
+        if (!usuario) {
+            return res.json({ success:false, message:"Usuario no encontrado" });
+        }
 
+        res.json({
+            success: true,
+            nombre: usuario.nombre
+        });
 
+    } catch (error) {
+        console.error("Error en /obtenerNombreUsuario:", error);
+        res.status(500).json({ success:false, message:"Error interno", error:error.message });
+    }
+});
 
 
 const PORT = 3001;
