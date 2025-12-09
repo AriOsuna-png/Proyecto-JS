@@ -4,6 +4,7 @@ const path = require("path");
 const { connectDB } = require("./db");
 const bcrypt = require("bcryptjs");
 const { error } = require("console");
+const { ObjectId } = require("mongodb");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -97,7 +98,7 @@ app.post('/guardar', async (req, res) => {
       tituloEncuesta,
       descripcionEncuesta,
       clave,
-      idUsuario,
+      idUsuario: new ObjectId(idUsuario),
       datos,
       creado: new Date()
 
@@ -154,6 +155,63 @@ app.post('/obtenerEncuesta', async (req, res) => {
     });
   }
 });
+
+app.post("/guardarRespuestas", async(req,res)=>{
+    try{
+        const {idEncuesta,idUsuario,respuestas} = req.body;
+
+        const db = await connectDB();
+
+        await db.collection("respuestas").insertOne({
+            idEncuesta: new ObjectId(idEncuesta),  // convertir correctamente
+            idUsuario: new ObjectId(idUsuario),
+            respuestas,
+            fecha: new Date()
+        });
+
+        res.json({success:true,message:"Respuestas guardadas exitosamente"});
+        
+    }catch(e){
+        console.log(e);  // 👈 MOSTRAR EL ERROR REAL EN CONSOLA
+        res.json({success:false,message:"Error al guardar"});
+    }
+});
+
+app.get("/encuestasUsuario/:idUsuario", async (req, res) => {
+    try {
+        const idUsuario = req.params.idUsuario;
+
+        const db = await connectDB();  // Conexión correcta a MongoDB
+        const collection = db.collection("encuestas");
+
+        // 🔥 Si idUsuario se guarda como texto
+        const encuestas = await collection.find({ idUsuario: idUsuario }).toArray();
+
+        // Si lo guardaras como ObjectId:
+        // const encuestas = await collection.find({ idUsuario: new ObjectId(idUsuario) }).toArray();
+
+        return res.json({
+            success: true,
+            encuestas
+        });
+
+    } catch (error) {
+        console.error("Error en /encuestasUsuario:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Error al obtener encuestas",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+
+
+
 
 const PORT = 3001;
 app.listen(PORT, ()=>{
