@@ -1,4 +1,5 @@
 const idUsuario = sessionStorage.getItem("usuarioID");
+console.log(idUsuario);
 
 if(!idUsuario){
     console.error("No hay usuario logueado en sessionStorage");

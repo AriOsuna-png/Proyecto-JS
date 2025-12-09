@@ -185,10 +185,10 @@ app.get("/encuestasUsuario/:idUsuario", async (req, res) => {
         const collection = db.collection("encuestas");
 
         // 🔥 Si idUsuario se guarda como texto
-        const encuestas = await collection.find({ idUsuario: idUsuario }).toArray();
+        //const encuestas = await collection.find({ idUsuario: idUsuario }).toArray();
 
         // Si lo guardaras como ObjectId:
-        // const encuestas = await collection.find({ idUsuario: new ObjectId(idUsuario) }).toArray();
+         const encuestas = await collection.find({ idUsuario: new ObjectId(idUsuario) }).toArray();
 
         return res.json({
             success: true,
