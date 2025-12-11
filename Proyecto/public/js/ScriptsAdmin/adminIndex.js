@@ -49,15 +49,22 @@ function mostrarEncuestas(encuestas){
     encuestas.forEach(enc => {
         const div = document.createElement("div");
         const br = document.createElement("br");
-        div.classList.add("contenedor-form");
+        
 
         div.innerHTML = `
-            <h1>${enc.tituloEncuesta}</h1>
-            <h3>${enc.descripcionEncuesta}</h3>
+            
 
-            <button class="opci ver-encuesta" data-id="${enc._id}">
-                <img src="../../imagenes/vista.png" class="opci">
-            </button>
+            <div class="tarjeta-encuesta">
+            <h1>${enc.tituloEncuesta}</h1>
+            <h3>${enc.tituloEncuesta}</h3>
+
+            <div class="acciones-tarjeta">
+                <button class="ver-encuesta" data-id="${enc._id}">
+                    <img src="../../imagenes/vista.png">
+                </button>
+            </div>
+        </div>
+
         `;
 
         contenedor.appendChild(div);

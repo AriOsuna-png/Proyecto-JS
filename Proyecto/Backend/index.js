@@ -239,6 +239,76 @@ app.get("/obtenerNombreUsuario/:idUsuario", async (req, res) => {
     }
 });
 
+app.get("/contarRespuestas/:idEncuesta", async (req, res) => {
+    try {
+        const idEncuesta = req.params.idEncuesta;
+
+        if (!ObjectId.isValid(idEncuesta)) {
+            return res.json({
+                success: false,
+                message: "ID de encuesta inválido"
+            });
+        }
+
+        const db = await connectDB();
+        const collection = db.collection("respuestas");
+
+        const respuestasBD = await collection
+            .find({ idEncuesta: new ObjectId(idEncuesta) })
+            .toArray();
+
+        if (!respuestasBD.length) {
+            return res.json({
+                success: true,
+                conteo: {}
+            });
+        }
+
+        // ===================
+        // 🔥 Estructura final
+        // conteo[preguntaTexto][opcion] = cantidad
+        // ===================
+        let conteo = {};
+
+        respuestasBD.forEach(doc => {
+            doc.respuestas.forEach(resp => {
+
+                const pregunta = resp.pregunta;
+
+                if (!conteo[pregunta]) conteo[pregunta] = {};
+
+                // ---- caso CHECKBOX ----
+                if (Array.isArray(resp.respuesta)) {
+                    resp.respuesta.forEach(op => {
+                        conteo[pregunta][op] = (conteo[pregunta][op] || 0) + 1;
+                    });
+                }
+
+                // ---- caso RADIO o TEXTO ----
+                else if (typeof resp.respuesta === "string") {
+                    conteo[pregunta][resp.respuesta] = 
+                        (conteo[pregunta][resp.respuesta] || 0) + 1;
+                }
+            });
+        });
+
+        res.json({
+            success: true,
+            conteo
+        });
+
+    } catch (error) {
+        console.error("❌ Error al contar respuestas:", error);
+        res.status(500).json({
+            success: false,
+            message: "Error interno",
+            error: error.message
+        });
+    }
+});
+
+
+
 
 const PORT = 3001;
 app.listen(PORT, ()=>{

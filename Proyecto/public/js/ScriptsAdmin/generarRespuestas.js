@@ -55,8 +55,9 @@ function generarRespuesta(bloque, i, tipo) {
 // Delegación de eventos para botones "Agregar nueva opción" y eliminar
 // Delegación de eventos para botones "Agregar nueva opción" y eliminar
 contenedorPreguntas.addEventListener("click", (event) => {
-    const botonAgregar = event.target.closest(".boton-agregar");    
-    const botonEliminar = event.target.closest(".btn-borrar");
+    
+    const botonAgregar = event.target.closest(".btn-agregar");    
+    const botonEliminar = event.target.closest(".boton-borrar");
     const botonElimarPreguntas = event.target.closest(".botonBorrarPreguntas");
 
     if (botonAgregar) {
@@ -117,13 +118,13 @@ function crearNuevoContenedor() {
     <div class="respuestas-añadidas"></div>
 
     <div class="contenedor-botones">
-        <button type="button" class="boton-agregar">
+        <button type="button" class="btn-agregar">
             <img src="../../imagenes/anadir.png" class="botonHeaders">
             Agregar nueva opción
         </button>
         
         <button class="boton-borrar oculto">
-            <img src="../../imagenes/eliminar.png" class="botonBorrarPreguntas">
+            <img src="../../imagenes/eliminar.png" class="botonHeaders">
         </button>
     </div>
     `;
@@ -132,7 +133,7 @@ function crearNuevoContenedor() {
 
     const selector = nuevo.querySelector(".selector");
     const contenedorRespuestas = nuevo.querySelector(".respuestas-añadidas");
-    const botonAgregar = nuevo.querySelector(".boton-agregar");
+    const botonAgregar = nuevo.querySelector(".btn-agregar");
 
     // 🟩 Función para crear una fila de respuesta con botón borrar
     function crearFilaRespuesta(tipoInput, placeholder, name) {
@@ -155,7 +156,8 @@ function crearNuevoContenedor() {
         botonBorrar.classList.add("btn-borrar");
 
         // Evento para borrar la fila actual
-        botonBorrar.addEventListener("click", () => {
+        botonBorrar.addEventListener("click", (e) => {
+            e.preventDefault();
             fila.remove();
         });
 
@@ -201,16 +203,6 @@ function crearNuevoContenedor() {
         botonAgregar.style.visibility = "visible";
     }
 });
-
-
-    // ➕ Botón para agregar nuevas opciones manualmente
-    botonAgregar.addEventListener("click", () => {
-        const tipo = selector.value;
-
-        if (tipo === "2") {
-            alert("Las preguntas abiertas no requieren opciones adicionales.");
-        }
-    });
 
     // Crear por defecto 2 opciones si es múltiple al inicio
     for (let i = 1; i <= 2; i++) {

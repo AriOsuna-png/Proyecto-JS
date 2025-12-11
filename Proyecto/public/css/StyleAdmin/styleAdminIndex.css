@@ -1,79 +1,299 @@
+/* =============================
+   RESET
+============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =============================
+   BODY – Fondo con degradado azul → blanco
+============================= */
+body {
+    background: linear-gradient(to bottom, #000000 0%, #0f5bd8 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* =============================
+   BARRA DE NAVEGACIÓN
+============================= */
 nav {
-    background-color: #666;
-    padding: 5px;
-    font-size: 35px;
+    background: #0f5bd8;
+    padding: 10px 20px;
+    font-size: 25px;
     color: white;
-    display: flex;                 
+
+    display: flex;
     justify-content: space-between;
-    align-items: center;          
-    border-radius: 10px;
+    align-items: center;
+
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
 }
 
-.contenedor-botones {
-    display: flex;  
-    gap: 10px;      
-}
-.contenedor-usuario{
-    display: flex;  
-    gap: 10px;    
-    align-items: center;  
-    
+/* Contenedor del usuario */
+.contenedor-usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.contenedor-mas{
+/* Foto de usuario */
+.usuario {
     width: 40px;
     height: 40px;
-    margin-left: 350px;
-    align-items: center;
-    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 50%;
 }
 
-.contenedor-form{
-    margin-left: 10px;
-    background-color: #666;
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
-    max-width: 600px;
-}
-
-.contenedor-form-header {
-    margin-left: 10px;
+/* =============================
+   BOTONES SUPERIORES (Cerrar sesión, Configuración)
+============================= */
+.contenedor-botones {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-decoration: none;
-}
-
-.opci{
-    width: 35px;
-    height: 35px;
-    margin-bottom: 5px;
-    cursor: pointer;
-}
-
-.contenedor-opci{
-    margin-top: -350px;
-    margin-left: 1830px;
-    border-radius: 10px;
-    background-color: #666;
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
+    gap: 15px;
 }
 
 .botonHeaders {
-    width: 30px;     
-    height: 30px;
-    cursor: pointer; 
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: 0.2s;
 }
-.usuario{
-    width: 30px;
-    height: 30px;
-    border: 2px solid;
-    border-radius: 50%;
+
+.botonHeaders:hover {
+    transform: scale(1.15);
+}
+
+/* =============================
+   CONTENEDOR PARA CREAR NUEVO FORMULARIO
+============================= */
+.contenedor-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background-color: #0f5bd8;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: white;
+    max-width: 450px;
+
+    text-decoration: none;
+    margin: 20px 0;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.3s ease;
+}
+
+.contenedor-form:hover {
+    background-color: #0b3c91;
+    transform: scale(1.03);
+}
+
+.contenedor-form-header h2 {
+    margin: 0;
+}
+
+.contenedor-mas {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.contenedor-mas:hover {
+    transform: scale(1.15);
+}
+
+/* =============================
+   OPCIONES DE ENCUESTA (eliminar, editar, ver)
+============================= */
+.contenedor-opci {
+    position: fixed;
+    top: 120px;
+    right: 40px;
+
+    background-color: #0f5bd8;
+    padding: 10px 15px;
+    border-radius: 12px;
+    gap: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    animation: fadeSlide 0.5s ease;
+}
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botones dentro del menú */
+.opci {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.opci:hover {
+    transform: scale(1.15);
+}
+
+/* =============================
+   CONTENEDOR ENCUESTAS DINÁMICAS
+============================= */
+#contenedor-encuestas {
+    margin-top: 15px;
+    padding: 10px;
+}
+
+/* BOTÓN VER ENCUESTA */
+.ver-encuesta {
+    background: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+}
+
+.ver-encuesta:hover {
+    background: #0b3c91;
+    transform: scale(1.06);
+}
+
+/* Icono dentro del botón */
+.ver-encuesta img {
+    width: 28px;
+    height: 28px;
+}
+
+/* TARJETAS DE ENCUESTAS */
+.tarjeta-encuesta {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 18px;
+
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+    border-left: 8px solid #0f5bd8;
+
+    transition: 0.3s;
+}
+
+.tarjeta-encuesta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.25);
+}
+
+/* Título */
+.tarjeta-encuesta h3 {
+    color: #0b3c91;
+    margin-bottom: 10px;
+}
+
+/* Acciones dentro de la tarjeta */
+.acciones-tarjeta {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Estilos para botones de editar / eliminar */
+.editar-encuesta,
+.eliminar-encuesta {
+    background: #e8f0ff;
+    border: 2px solid #0f5bd8;
+    border-radius: 10px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.editar-encuesta:hover,
+.eliminar-encuesta:hover {
+    background: #d9e6ff;
+    transform: scale(1.07);
+}
+
+.editar-encuesta img,
+.eliminar-encuesta img {
+    width: 25px;
+    height: 25px;
+}
+/* =============================
+   BOTONES DE ACCIÓN – GENERALES
+============================= */
+.accion {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.20);
+    background: #ffffff;
+}
+
+/* Iconos dentro del botón */
+.accion img {
+    width: 25px;
+    height: 25px;
+    pointer-events: none;
+    filter: brightness(0) saturate(100%); /* Mantiene color original */
+}
+
+/* Hover general */
+.accion:hover {
+    transform: scale(1.12);
+}
+
+/* =============================
+   ESTILOS POR ACCIÓN
+============================= */
+
+/* Ver encuesta (azul) */
+.ver-encuesta {
+    border: 2px solid #0f5bd8;
+}
+.ver-encuesta:hover {
+    background: #cbddfe;
+}
+
+/* Editar encuesta (verde suave) */
+.editar-encuesta {
+    border: 2px solid #08b26a;
+}
+.editar-encuesta:hover {
+    background: #e0ffe8;
+}
+
+/* Eliminar encuesta (rojo suave) */
+.eliminar-encuesta {
+    border: 2px solid #d64545;
+}
+.eliminar-encuesta:hover {
+    background: #ffe5e5;
+}
 
 
-}
+

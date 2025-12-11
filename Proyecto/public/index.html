@@ -10,22 +10,24 @@
     </head>
     <body>
         
-        <img src="./imagenes/usuario.png" alt="usuario" class="img"><br>
+        
         <!--div que contiene el login-->
-        <div>
+        <div class="login-container">
+            <img src="./imagenes/usuario.png" alt="usuario" class="img"><br>
             
 
             <form id="loginForm" class="loginForm">
-                <input type="text" id="user" name="user" placeholder="Usuario" class="input"></a><br><br>
-                <input type="password" id="password" name="passwordUser" placeholder="Contraseña" class="input"><br><br>
-                <button type="submit">Acceder</button><br>
-                <p>¿NO tienes una cuenta? Crea una...</p>
-                <a href="./html/Users/createUser.html">crear un usuaio nuevo</a>
+                <input type="text" id="user" name="user" placeholder="Usuario" class="input-field"></a><br><br>
+                <input type="password" id="password" name="passwordUser" placeholder="Contraseña" class="input-field"><br><br>
+                
+                <button type="submit" class="login-btn">Acceder</button><br>
+                <p class="bottom-text">¿No tienes cuenta?
+                    <a href="./html/Users/createUser.html">Regístrate</a>
+
+                </p>
+                
             </form>
-
-
         </div>
-        
     <script src="./js/ScriptsIndex.js"> </script>
     </body>
 </html> 

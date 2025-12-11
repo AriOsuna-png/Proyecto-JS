@@ -1,160 +1,209 @@
-/* Barra de navegación superior */
+/* ===========================
+   FONDO GENERAL
+=========================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #000000 0%, #0f5bd8 100%);
+    color: #fff;
+}
+
+
+
+/* ===========================
+   NAV SUPERIOR
+=========================== */
 nav {
-    background-color: #666;
-    padding: 5px 20px;
-    font-size: 35px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px 25px;
     color: white;
-    display: flex;                 
+    font-size: 32px;
+
+    display: flex;
     justify-content: space-between;
-    align-items: center;          
+    align-items: center;
+
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(6px);
 }
 
-.contenedor-usuario {
-    display: flex;  
-    gap: 10px;    
-    align-items: center;  
-}
-
+.contenedor-usuario,
 .contenedor-botones {
-    display: flex;  
-    gap: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .botonHeaders {
-    width: 30px;     
+    width: 30px;
     height: 30px;
     cursor: pointer;
 }
 
 .usuario {
-    width: 30px;
-    height: 30px;
-    border: 2px solid;
+    width: 32px;
+    height: 32px;
+    border: 2px solid white;
     border-radius: 50%;
 }
 
-/* Barra lateral vertical */
+
+
+/* ===========================
+   BARRA LATERAL
+=========================== */
 .barra-lateral {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: flex-start; /* Pegado al inicio horizontal */
-    margin-top: 20px;
+    gap: 15px;
+    margin-top: 25px;
 }
 
-/* Contenedor de preguntas */
+
+
+/* ===========================
+   CONTENEDOR DE PREGUNTAS
+=========================== */
 .preguntas {
     margin: 20px auto;
     width: 800px;
+
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.10);
+
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    border: 3px solid #000;
-    border-radius: 10px;
-    gap: 15px; /* espacio interno entre inputs y select */
+    gap: 18px;
 }
 
-/* Inputs */
-.inputs {
-    width: 100%;
-    max-width: 600px;
-    height: 40px;
-    border: none;
-    outline: none;     
-    background: #f5f5f5;
-    padding: 0 10px;
-    font-size: 18px;
-    text-align: left;
-    border-radius: 5px;
-}
-
-::placeholder {
-    font-size: 16px;
-}
-
-/* Selector */
-.selector {
-    width: 100%;
-    max-width: 320px;
-    padding: 8px;
-    border-radius: 6px;
-    border: 2px solid #940000;
-    background-color: white;
-    font-size: 16px;
-}
-
-/* Contenedor de fila pregunta */
 .fila-pregunta {
     display: flex;
-    align-items: center; 
-    gap: 10px;
     width: 100%;
+    gap: 12px;
 }
 
 .fila-pregunta .inputs {
-    flex: 2;   
+    flex: 2;
 }
 
 .fila-pregunta .selector {
-    flex: 1;   
+    flex: 1;
 }
 
-/* Botón agregar opción */
-.boton-agregar {
-    display: flex;           
-    align-items: center;     
-    gap: 5px;                
-    padding: 8px 12px;      
+
+
+/* ===========================
+   INPUTS (Glass + Glow azul)
+=========================== */
+.inputs {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 17px;
+    color: #fff;
+
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+
+    backdrop-filter: blur(6px);
+    outline: none;
+    transition: 0.25s ease;
+}
+
+.inputs::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.inputs:focus {
+    border-color: #0f5bd8;
+    box-shadow: 0 0 10px rgba(15,91,216,0.7);
+    background: rgba(255,255,255,0.15);
+}
+
+
+
+/* ===========================
+   SELECT GLASS
+=========================== */
+.selector {
+    width: 100%;
+    padding: 10px 14px;
     font-size: 16px;
-    border: 2px solid #940000;
-    border-radius: 6px;
-    background-color: #fff;
+    color: #fff;
+
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+
+    backdrop-filter: blur(6px);
+    outline: none;
     cursor: pointer;
+    transition: 0.25s ease;
+
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
 }
 
-.boton-agregar img {
-    width: 25px;
-    height: 25px;
+.selector:hover {
+    background: rgba(255,255,255,0.14);
 }
 
-/* Opcional: efecto hover */
-.boton-agregar:hover {
-    background-color: #f0f0f0;
+.selector:focus {
+    border-color: #0f5bd8;
+    box-shadow: 0 0 10px rgba(15,91,216,0.7);
 }
-/* Contenedor del checkbox */
+
+.selector option {
+    background: #000;
+    color: #fff;
+}
+
+
+
+/* ===========================
+   CHECKBOX PERSONALIZADO
+=========================== */
 .checkbox-container {
     display: flex;
     align-items: center;
-    gap: 8px;            /* espacio entre caja y texto */
+    gap: 8px;
     cursor: pointer;
-    font-size: 16px;
     user-select: none;
+    font-size: 16px;
 }
 
-/* Ocultar el checkbox real */
 .checkbox-container input {
     display: none;
 }
 
-/* Caja personalizada */
 .checkmark {
     width: 20px;
     height: 20px;
-    border: 2px solid #940000;   /* mismo color que select y botones */
-    border-radius: 5px;          /* bordes redondeados para que combine */
-    background-color: white;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 5px;
+    background: rgba(255,255,255,0.08);
     position: relative;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: .25s ease;
 }
 
-/* Cuando está seleccionado */
+.checkbox-container:hover .checkmark {
+    border-color: #0f5bd8;
+}
+
 .checkbox-container input:checked + .checkmark {
-    background-color: #940000;
-    border-color: #940000;
+    background: #0f5bd8;
+    border-color: #0f5bd8;
+    box-shadow: 0 0 8px rgba(15,91,216,0.7);
 }
 
-/* Marca de verificación */
 .checkmark::after {
     content: "";
     position: absolute;
@@ -168,41 +217,345 @@ nav {
     transform: rotate(45deg);
 }
 
-/* Mostrar la marca cuando está checked */
 .checkbox-container input:checked + .checkmark::after {
     display: block;
 }
-.contenedor-opci {
-    position: fixed;     
-    top: 400px;           
-    right: 20px;         
-    display: flex;
-    flex-direction: column; 
-    gap: 10px;              
-    background-color: #fff; 
-    padding: 10px;
-    border-radius: 8px;    
-    box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-    z-index: 1000;       
-    background-color: lightgray;   
-}
-.btn-borrar {
-    background-color: #ff4d4d;
-    border: none;
-    color: white;
-    padding: 5px 10px;
+
+
+
+/* ===========================
+   RADIO BUTTON (solo input)
+=========================== */
+.radio-opcion {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
     cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    
+    transition: 0.25s ease;
+    position: relative;
 }
 
-.btn-borrar:hover {
-    background-color: #ff1a1a;
+.radio-opcion:hover {
+    border-color: #0f5bd8;
 }
+
+.radio-opcion:checked {
+    border-color: #0f5bd8;
+    background: rgba(15, 91, 216, 0.8);
+    box-shadow: 0 0 8px rgba(15,91,216,0.7);
+}
+
+.radio-opcion:checked::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/* ===========================
+   BOTONES DE OPCIONES LATERALES
+=========================== */
+.contenedor-opci {
+    position: fixed;
+    top: 400px;
+    right: 20px;
+
+    background: rgba(255,255,255,0.10);
+    border: 2px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+
+/* ===========================
+   BOTÓN BORRAR (glass rojo)
+=========================== */
+.boton-borrar {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+
+    border: 2px solid rgba(255, 255, 255, 0.20);
+    border-radius: 10px;
+
+    width: 46px;
+    height: 46px;
+
+    padding: 6px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.40);
+    transition: 
+        background .18s ease,
+        transform .16s ease,
+        box-shadow .20s ease;
+}
+
+/* Hover */
+.boton-borrar:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 80, 80, 0.20);
+    box-shadow: 0 6px 16px rgba(255, 40, 40, 0.35);
+    border-color: rgba(255, 80, 80, 0.45);
+}
+
+/* Activo */
+.boton-borrar:active {
+    transform: scale(0.92);
+    background: rgba(255, 50, 50, 0.14);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.60);
+}
+
+
+
+/* ===========================
+   IMAGEN DEL BOTÓN BORRAR
+=========================== */
+
+/* Oculto por defecto */
+.botonBorrarPreguntas {
+    width: 26px;
+    height: 26px;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.7);
+    transition: 0.25s ease;
+}
+
+/* Cuando se muestra */
+.botonBorrarPreguntas.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    filter: drop-shadow(0 0 7px rgba(255, 60, 60, 0.7));
+}
+
+.botonBorrarPreguntas.mostrar:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(255, 60, 60, 1));
+}
+
+.botonBorrarPreguntas.mostrar:active {
+    transform: scale(0.9);
+}
+
+
+
+/* ===========================
+   CLASE OCULTA GENERAL
+=========================== */
 .oculto {
-    display: none;
+    display: none !important;
 }
+/* Botón específico para borrar opciones (rojo contundente) */
+.btn-borrar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 10px;
+    min-width: 44px;
+    height: 38px;
+
+    background: linear-gradient(180deg, rgba(255,76,76,0.12), rgba(255,60,60,0.06));
+    border: 2px solid rgba(255,76,76,0.85);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: transform .14s ease, box-shadow .18s ease, background .18s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* Hover: más vivo y glow rojo */
+.btn-borrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,60,60,0.20);
+    background: linear-gradient(180deg, rgba(255,76,76,0.18), rgba(255,60,60,0.10));
+}
+
+/* Estado activo: presionado */
+.btn-borrar:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    opacity: 0.95;
+}
+
+/* Si el botón usa solo icono (sin texto) */
+.btn-borrar.icono {
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+
+/* Si usas una img dentro */
+.btn-borrar img {
+    width: 18px;
+    height: 18px;
+    filter: drop-shadow(0 0 4px rgba(255,60,60,0.35));
+    transition: transform .12s ease;
+}
+
+.btn-borrar:hover img {
+    transform: scale(1.08);
+}
+
+/* Accesibilidad: foco visible */
+.btn-borrar:focus {
+    outline: 3px solid rgba(255,76,76,0.18);
+    outline-offset: 2px;
+}
+/* Botón para agregar nuevas opciones */
+.btn-agregar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 14px;
+    min-width: 48px;
+    height: 40px;
+
+    background: linear-gradient(180deg, rgba(0, 180, 255, 0.20), rgba(0, 120, 255, 0.12));
+    border: 2px solid rgba(0, 150, 255, 0.85);
+    color: #fff;
+
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: 
+        transform .14s ease, 
+        box-shadow .18s ease, 
+        background .18s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* Hover: más glow azul */
+.btn-agregar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,150,255,0.25);
+    background: linear-gradient(180deg, rgba(0, 180, 255, 0.28), rgba(0, 120, 255, 0.18));
+}
+
+/* Activo (presionado) */
+.btn-agregar:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    opacity: 0.95;
+}
+
+/* Versión solo icono */
+.btn-agregar.icono {
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+}
+
+/* Imagen dentro del botón */
+.btn-agregar img {
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0 0 4px rgba(0,150,255,0.35));
+    transition: transform .12s ease;
+}
+
+.btn-agregar:hover img {
+    transform: scale(1.10);
+}
+
+/* Foco accesible */
+.btn-agregar:focus {
+    outline: 3px solid rgba(0,150,255,0.25);
+    outline-offset: 2px;
+}#agregar-pregunta,
+#borrar-pregunta,
+#btnGuardar {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(6px);
+
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+
+    padding: 6px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    transition: 
+        background .18s ease,
+        transform .16s ease,
+        box-shadow .18s ease;
+}
+
+/* Hover */
+#agregar-pregunta:hover,
+#borrar-pregunta:hover,
+#btnGuardar:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+}
+
+/* Activo (clic) */
+#agregar-pregunta:active,
+#borrar-pregunta:active,
+#btnGuardar:active {
+    transform: scale(0.92);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.55);
+}
+.botonHeaders {
+    width: 28px;
+    height: 28px;
+
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.25));
+    transition: transform .16s ease;
+}
+
+#agregar-pregunta:hover .botonHeaders,
+#borrar-pregunta:hover .botonHeaders,
+#btnGuardar:hover .botonHeaders {
+    transform: scale(1.10);
+}
+
+
 
 
 

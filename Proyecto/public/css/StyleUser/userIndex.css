@@ -1,12 +1,29 @@
-/* Barra de navegación superior */
+/* ──────────────────────────────────────────────── */
+/*                    GLOBAL                        */
+/* ──────────────────────────────────────────────── */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #000000 0%, #0f5bd8 100%);
+    color: #fff;
+}
+
+
+/* ──────────────────────────────────────────────── */
+/*              NAVBAR SUPERIOR                     */
+/* ──────────────────────────────────────────────── */
 nav {
-    background-color: #666;
-    padding: 5px 20px;
-    font-size: 35px;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid rgba(255,255,255,0.18);
+    padding: 10px 25px;
+
+    font-size: 32px;
     color: white;
+
     display: flex;                 
     justify-content: space-between;
-    align-items: center;          
+    align-items: center;
 }
 
 .contenedor-usuario {
@@ -17,224 +34,297 @@ nav {
 
 .contenedor-botones {
     display: flex;  
-    gap: 10px;
+    gap: 12px;
 }
 
-.botonHeaders {
-    width: 30px;     
-    height: 30px;
-    cursor: pointer;
-}
-
+/* Usuarios del navbar */
 .usuario {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+
+/* ──────────────────────────────────────────────── */
+/*         BOTONES DEL NAVBAR / GENERALES           */
+/* ──────────────────────────────────────────────── */
+.botonHeaders {
     width: 30px;
     height: 30px;
-    border: 2px solid;
-    border-radius: 50%;
-}
-
-/* Barra lateral vertical */
-.barra-lateral {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start; /* Pegado al inicio horizontal */
-    margin-top: 20px;
-}
-
-/* Contenedor de preguntas */
-.preguntas {
-    margin: 20px auto;
-    width: 800px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    border: 3px solid #000;
+    padding: 4px;
     border-radius: 10px;
-    gap: 15px; /* espacio interno entre inputs y select */
-}
-
-/* Inputs */
-.inputs {
-    width: 100%;
-    max-width: 600px;
-    height: 40px;
-    border: none;
-    outline: none;     
-    background: #f5f5f5;
-    padding: 0 10px;
-    font-size: 18px;
-    text-align: left;
-    border-radius: 5px;
-}
-
-::placeholder {
-    font-size: 16px;
-}
-
-/* Selector */
-.selector {
-    width: 100%;
-    max-width: 320px;
-    padding: 8px;
-    border-radius: 6px;
-    border: 2px solid #940000;
-    background-color: white;
-    font-size: 16px;
-}
-
-/* Contenedor de fila pregunta */
-.fila-pregunta {
-    display: flex;
-    align-items: center; 
-    gap: 10px;
-    width: 100%;
-}
-
-.fila-pregunta .inputs {
-    flex: 2;   
-}
-
-.fila-pregunta .selector {
-    flex: 1;   
-}
-
-/* Botón agregar opción */
-.boton-agregar {
-    display: flex;           
-    align-items: center;     
-    gap: 5px;                
-    padding: 8px 12px;      
-    font-size: 16px;
-    border: 2px solid #940000;
-    border-radius: 6px;
-    background-color: #fff;
     cursor: pointer;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+
+    border: 2px solid rgba(255,255,255,0.20);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+
+    transition: 0.2s ease;
 }
 
-.boton-agregar img {
-    width: 25px;
-    height: 25px;
+.botonHeaders:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.35);
 }
 
-/* Opcional: efecto hover */
-.boton-agregar:hover {
-    background-color: #f0f0f0;
-}
-/* Contenedor del checkbox */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;            /* espacio entre caja y texto */
-    cursor: pointer;
-    font-size: 16px;
-    user-select: none;
+.botonHeaders:active {
+    transform: scale(0.92);
 }
 
-/* Ocultar el checkbox real */
-.checkbox-container input {
-    display: none;
-}
 
-/* Caja personalizada */
-.checkmark {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #940000;   /* mismo color que select y botones */
-    border-radius: 5px;          /* bordes redondeados para que combine */
-    background-color: white;
-    position: relative;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-/* Cuando está seleccionado */
-.checkbox-container input:checked + .checkmark {
-    background-color: #940000;
-    border-color: #940000;
-}
-
-/* Marca de verificación */
-.checkmark::after {
-    content: "";
-    position: absolute;
-    display: none;
-    left: 5px;
-    top: 1px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-/* Mostrar la marca cuando está checked */
-.checkbox-container input:checked + .checkmark::after {
-    display: block;
-}
+/* ──────────────────────────────────────────────── */
+/*        BARRA LATERAL (solo botón guardar)        */
+/* ──────────────────────────────────────────────── */
 .contenedor-opci {
     position: fixed;     
-    top: 400px;           
+    top: 350px;           
     right: 20px;         
     display: flex;
     flex-direction: column; 
-    gap: 10px;              
-    background-color: #fff; 
-    padding: 10px;
-    border-radius: 8px;    
-    box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-    z-index: 1000;       
-    background-color: lightgray;   
+    gap: 12px;              
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+
+    padding: 12px;
+    border-radius: 12px;    
+    box-shadow: 0 0 12px rgba(0,0,0,0.4); 
+    z-index: 1000;
 }
-.btn-borrar {
-    background-color: #ff4d4d;
-    border: none;
+
+
+/* ──────────────────────────────────────────────── */
+/*               FORM BUSCAR ENCUESTA               */
+/* ──────────────────────────────────────────────── */
+form#buscarEncuesta {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 20px;
+
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.18);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
     color: white;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
+    font-size: 18px;
+}
+
+form#buscarEncuesta input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.80);
+    outline: none;
+    font-size: 18px;
+    color: #000;
+}
+
+form#buscarEncuesta button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+
+    background: #0d6efd;
+    font-size: 18px;
     font-weight: bold;
-    
+
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.btn-borrar:hover {
-    background-color: #ff1a1a;
-}
-.oculto {
-    display: none;
+form#buscarEncuesta button:hover {
+    background: #0b5cd7;
 }
 
+
+
+/* ──────────────────────────────────────────────── */
+/*            CONTENEDOR DE ENCUESTA                */
+/* ──────────────────────────────────────────────── */
 #encuestaContenedor {
     max-width: 900px;
-    margin: 25px auto;
+    margin: 35px auto;
 }
 
-/* ───────── Radio buttons personalizados ───────── */
-.radio-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+
+
+/* ──────────────────────────────────────────────── */
+/*                    INPUTS                        */
+/* ──────────────────────────────────────────────── */
+.inputs {
+    width: 100%;
+    height: 42px;
+    background: rgba(255,255,255,0.85);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 17px;
+    color: #000;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.inputs:focus {
+    border-color: #0f5bd8;
+    box-shadow: 0 0 8px rgba(15,91,216,0.5);
+}
+
+.inputs::placeholder {
+    color: #555;
+}
+
+
+
+/* ──────────────────────────────────────────────── */
+/*                    SELECT                        */
+/* ──────────────────────────────────────────────── */
+.selector {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px;
+
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.35);
+
+    background: rgba(255,255,255,0.85);
+    font-size: 17px;
+    color: #000;
+
     cursor: pointer;
-    font-size: 16px;
-    user-select: none;
-}
-
-/* Ocultar radio original */
-.radio-container input {
-    display: none;
-}
-
-/* Círculo visual personalizado */
-.radiomark {
-    width: 18px;
-    height: 18px;
-    border: 3px solid #940000;
-    border-radius: 50%;
-    position: relative;
+    outline: none;
     transition: 0.2s;
 }
 
-/* Punto interior cuando está seleccionado */
+.selector:hover {
+    border-color: #0f5bd8;
+}
+
+.selector:focus {
+    border-color: #0f5bd8;
+    box-shadow: 0 0 8px rgba(15,91,216,0.5);
+}
+
+
+
+/* ──────────────────────────────────────────────── */
+/*         BOTÓN AGREGAR OPCIÓN (opciones)          */
+/* ──────────────────────────────────────────────── */
+.boton-agregar {
+    background: rgba(255,255,255,0.10);
+    border: 2px solid rgba(255,255,255,0.20);
+    border-radius: 8px;
+
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+
+    backdrop-filter: blur(6px);
+    transition: 0.2s ease;
+}
+
+.boton-agregar:hover {
+    background: rgba(0,255,100,0.25);
+    border-color: rgba(0,255,100,0.45);
+}
+
+.boton-agregar img {
+    width: 24px;
+}
+
+
+
+/* ──────────────────────────────────────────────── */
+/*                BOTÓN BORRAR OPCIÓN               */
+/* ──────────────────────────────────────────────── */
+.boton-borrar {
+    width: 46px;
+    height: 46px;
+
+    background: rgba(255,255,255,0.10);
+    border: 2px solid rgba(255,255,255,0.20);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.boton-borrar:hover {
+    background: rgba(255,60,60,0.25);
+    border-color: rgba(255,60,60,0.45);
+}
+
+.botonBorrarPreguntas {
+    width: 26px;
+    transition: transform 0.2s;
+}
+
+.boton-borrar:hover .botonBorrarPreguntas {
+    transform: scale(1.12);
+}
+
+.oculto {
+    display: none !important;
+}
+
+
+
+/* ──────────────────────────────────────────────── */
+/*                  RADIO BUTTONS                   */
+/* ──────────────────────────────────────────────── */
+/* Contenedor del radio + texto */
+.radio-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+    margin: 6px 0;
+}
+
+/* Ocultar radio original */
+.radio-container input[type="radio"] {
+    display: none;
+}
+
+/* Círculo personalizado */
+.radiomark {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #940000;     /* mismo rojo que checkbox */
+    border-radius: 50%;            /* forma circular */
+    background-color: #fff;
+    position: relative;
+    transition: 0.2s ease;
+}
+
+/* Hover */
+.radio-container:hover .radiomark {
+    border-color: #b30000;
+}
+
+/* Punto interno */
 .radiomark::after {
     content: "";
     width: 10px;
@@ -248,12 +338,182 @@ nav {
     display: none;
 }
 
-/* Radio seleccionado */
+/* Cuando está seleccionado */
+.radio-container input:checked + .radiomark {
+    border-color: #940000;
+    background-color: #fff;
+}
+
 .radio-container input:checked + .radiomark::after {
     display: block;
 }
 
+/* Contenedor de cada checkbox + texto */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;                 
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+    margin: 6px 0;
+}
 
+/* Ocultar el checkbox original */
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+
+/* Cuadro personalizado */
+.checkmark {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #940000;  /* Tu color principal */
+    border-radius: 4px;         /* Ligero redondeado */
+    background-color: #fff;
+    position: relative;
+    transition: 0.2s ease;
+}
+
+/* Efecto hover */
+.checkbox-container:hover .checkmark {
+    border-color: #b30000;      
+}
+
+/* ✔ interior */
+.checkmark::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;  
+    transform: rotate(45deg);
+    top: 1px;
+    left: 6px;
+    display: none;
+}
+
+/* Cuando está seleccionado */
+.checkbox-container input:checked + .checkmark {
+    background-color: #940000;
+    border-color: #940000;
+}
+
+/* Mostrar el ✔ */
+.checkbox-container input:checked + .checkmark::after {
+    display: block;
+}
+/* Contenedor lateral flotante */
+.contenedor-opci {
+    position: fixed;
+    top: 200px;
+    right: 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    background: #f2f2f2;              /* gris claro neutro */
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+
+    z-index: 1000;
+    transition: 0.3s ease;
+}
+
+/* Efecto hover - más elevación */
+.contenedor-opci:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* ===========================
+   BARRA LATERAL (MISMO ESTILO)
+=========================== */
+.contenedor-opci {
+    position: fixed;
+    top: 350px;
+    right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 14px;
+
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(8px);
+
+    border: 2px solid rgba(255, 255, 255, 0.22);
+    border-radius: 12px;
+
+    box-shadow: 0 4px 14px rgba(0,0,0,0.40);
+    transition: 
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .20s ease;
+}
+
+/* Hover: igual que los botones */
+.contenedor-opci:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.14);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.48);
+}
+/* ===========================
+   BOTÓN GUARDAR (Glass + Blur)
+=========================== */
+#btnGuardar {
+    width: 46px;
+    height: 46px;
+    padding: 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(8px);
+
+    border: 2px solid rgba(255, 255, 255, 0.22);
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    transition: 
+        background 0.18s ease,
+        transform 0.16s ease,
+        box-shadow 0.18s ease;
+}
+
+/* Hover: ligero pop y sombra */
+#btnGuardar:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+}
+
+/* Activo: clic */
+#btnGuardar:active {
+    transform: scale(0.92);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.55);
+}
+
+/* Imagen interna */
+#btnGuardar .botonHeaders {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 4px rgba(255,255,255,0.25));
+    transition: transform 0.16s ease;
+}
+
+#btnGuardar:hover .botonHeaders {
+    transform: scale(1.10);
+}
 
 
 
